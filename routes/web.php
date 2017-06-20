@@ -11,14 +11,12 @@
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
 
-Route::group(['midleware'=>'web'], function() {
 
-	Route::match(['get', 'post'], '/', ['uses'=>'indexController@execute', 'us'=>'home']);
-	Route::get('/page/{alias}', ['uses'=>'pageController@execute', 'us'=>'page']);
+Route::group(['middleware'=>'web'], function() {
+
+	Route::match(['get', 'post'], '/', ['uses'=>'IndexController@execute', 'us'=>'home']);
+	Route::get('/page/{alias}', ['uses'=>'PageController@execute', 'us'=>'page']);
 
 	Route::auth();
 
@@ -34,15 +32,35 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth'], function() {
 
 	});
 
+
 	//admin/pages
-	Route::group(['prefix'=>'pages'], finction() {
+	Route::group(['prefix'=>'pages'], function() {
 
 		//admin/pages
-		Route::get('/', ['uses'=>'pagesController@execute', 'us'=>'pages']);
+		Route::get('/', ['uses'=>'PageController@execute', 'us'=>'pages']);
 
 		//admin/pages/add
-		Route::match(['get', 'post'], '/add', ['uses'=>'pagesAddController@execute', 'us'=>'pegasAdd']);
-		Route::match(['get', 'post', 'delete'], '/edit/{page}', ['uses'=>'pagesEditController@execute', 'us'=>'pagesEdit']);
+		Route::match(['get', 'post'], '/add', ['uses'=>'PageAddController@execute', 'us'=>'pageAdd']);
+		//admin/edit/x
+		Route::match(['get', 'post', 'delete'], '/edit/{page}', ['uses'=>'PageEditController@execute', 'us'=>'pageEdit']);
+
+	});
+
+	Route::group(['prefix'=>'portfolios'], function() {
+
+		Route::get('/', ['uses'=>'PortfolioController@execute', 'us'=>'portfolios']);
+
+		Route::match(['get', 'post'], '/add', ['uses'=>'PortfolioAddController@execute', 'us'=>'portfolioAdd']);
+		Route::match(['get', 'post', 'delete'], '/edit/{portfolio}', ['uses'=>'PortfolioEditController@execute', 'us'=>'portfolioEdit']);
+
+	});
+
+	Route::group(['prefix'=>'services'], function() {
+
+		Route::get('/', ['uses'=>'ServiceController@execute', 'us'=>'services']);
+
+		Route::match(['get', 'post'], '/add', ['uses'=>'ServiceAddController@execute', 'us'=>'serviceAdd']);
+		Route::match(['get', 'post', 'delete'], '/edit/{service}', ['uses'=>'ServiceEditController@execute', 'us'=>'serviceEdit']);
 
 	});
 
