@@ -15,9 +15,12 @@
 
 Route::group(['middleware'=>'web'], function() {
 
-	Route::match(['get', 'post'], '/', ['uses'=>'IndexController@execute', 'us'=>'home']);
-	Route::get('/page/{alias}', ['uses'=>'PageController@execute', 'us'=>'page']);
-
+	Route::match(['get', 'post'], '/', ['uses'=>'IndexController@execute', 'as'=>'home']);
+	Route::get('/page/{alias}', ['uses'=>'PageController@execute', 'as'=>'page']);
+	/*Route::get('/page/{alias}', function() {
+		echo 'Hello';
+	});
+*/
 	Route::auth();
 
 });
@@ -37,30 +40,30 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth'], function() {
 	Route::group(['prefix'=>'pages'], function() {
 
 		//admin/pages
-		Route::get('/', ['uses'=>'PageController@execute', 'us'=>'pages']);
+		Route::get('/', ['uses'=>'PageController@execute', 'as'=>'pages']);
 
 		//admin/pages/add
-		Route::match(['get', 'post'], '/add', ['uses'=>'PageAddController@execute', 'us'=>'pageAdd']);
+		Route::match(['get', 'post'], '/add', ['uses'=>'PageAddController@execute', 'as'=>'pageAdd']);
 		//admin/edit/x
-		Route::match(['get', 'post', 'delete'], '/edit/{page}', ['uses'=>'PageEditController@execute', 'us'=>'pageEdit']);
+		Route::match(['get', 'post', 'delete'], '/edit/{page}', ['uses'=>'PageEditController@execute', 'as'=>'pageEdit']);
 
 	});
 
 	Route::group(['prefix'=>'portfolios'], function() {
 
-		Route::get('/', ['uses'=>'PortfolioController@execute', 'us'=>'portfolios']);
+		Route::get('/', ['uses'=>'PortfolioController@execute', 'as'=>'portfolios']);
 
-		Route::match(['get', 'post'], '/add', ['uses'=>'PortfolioAddController@execute', 'us'=>'portfolioAdd']);
-		Route::match(['get', 'post', 'delete'], '/edit/{portfolio}', ['uses'=>'PortfolioEditController@execute', 'us'=>'portfolioEdit']);
+		Route::match(['get', 'post'], '/add', ['uses'=>'PortfolioAddController@execute', 'as'=>'portfolioAdd']);
+		Route::match(['get', 'post', 'delete'], '/edit/{portfolio}', ['uses'=>'PortfolioEditController@execute', 'as'=>'portfolioEdit']);
 
 	});
 
 	Route::group(['prefix'=>'services'], function() {
 
-		Route::get('/', ['uses'=>'ServiceController@execute', 'us'=>'services']);
+		Route::get('/', ['uses'=>'ServiceController@execute', 'as'=>'services']);
 
-		Route::match(['get', 'post'], '/add', ['uses'=>'ServiceAddController@execute', 'us'=>'serviceAdd']);
-		Route::match(['get', 'post', 'delete'], '/edit/{service}', ['uses'=>'ServiceEditController@execute', 'us'=>'serviceEdit']);
+		Route::match(['get', 'post'], '/add', ['uses'=>'ServiceAddController@execute', 'as'=>'serviceAdd']);
+		Route::match(['get', 'post', 'delete'], '/edit/{service}', ['uses'=>'ServiceEditController@execute', 'as'=>'serviceEdit']);
 
 	});
 
