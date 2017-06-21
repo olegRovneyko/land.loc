@@ -18,6 +18,35 @@ class IndexController extends Controller
     	$peoples = People::all();
     	$services = Service::all();
 
-    	return view('site.index');
-    }
+    	$menu = [];
+    	foreach ($pages as $page) {
+    		$item = ['title'=>$page->name, 'alias'=>$page->alias];
+    		$menu[] = $item;
+    	}
+
+    	$item = ['title'=>'Services', 'alias'=>'service'];
+    	$menu[] = $item;
+
+    	$item = ['title'=>'Portfolio', 'alias'=>'Portfolio'];
+    	$menu[] = $item;
+
+    	/*$item = ['title'=>'Clients', 'alias'=>'clients'];
+    	$menu[] = $item;*/
+
+    	$item = ['title'=>'Team', 'alias'=>'team'];
+    	$menu[] = $item;
+
+    	$item = ['title'=>'Contact', 'alias'=>'contact'];
+    	$menu[] = $item;
+
+    	//dd($pages);
+
+    	return view('site.index', [
+												    		'menu'=>$menu,
+												    		'pages'=>$pages,
+												    		'services'=>$services,
+												    		'portfolios'=>$portfolios,
+												    		'peoples'=>$peoples,
+												    	]);
+		}
 }
